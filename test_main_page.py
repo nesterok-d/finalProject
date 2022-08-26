@@ -1,9 +1,8 @@
-#наследуем методы из класса MainPage
-from final_project.pages.basket_page import BasketPage
-from final_project.pages.locators import BasePageLocators
-from final_project.pages.main_page import MainPage
-
-from pages.login_page import LoginPage
+#наследуем методы из классов
+from peges.basket_page import BasketPage
+from peges.locators import BasePageLocators
+from peges.login_page import LoginPage
+from peges.main_page import MainPage
 
 #создаем тестовые сцениарии
 
