@@ -38,3 +38,8 @@ class ProductPage(BasePage):
     def should_is_disappeared_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
+
+    def compare_titles_of_books(self):
+        tile1 = self.take_success_message
+        tile2 = self.take_title_the_book
+        assert tile1 == tile2, "the titles of the books are not the same"
