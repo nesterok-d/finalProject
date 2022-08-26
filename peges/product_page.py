@@ -40,6 +40,8 @@ class ProductPage(BasePage):
             "Success message is presented, but should not be"
 
     def compare_titles_of_books(self):
-        tile1 = self.take_success_message
-        tile2 = self.take_title_the_book
+        success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE)
+        title_the_book = self.browser.find_element(*ProductPageLocators.TITLE_THE_BOOK)
+        tile1 = success_message.text
+        tile2 = title_the_book.text
         assert tile1 == tile2, "the titles of the books are not the same"
