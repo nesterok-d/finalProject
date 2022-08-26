@@ -24,47 +24,43 @@ from peges.product_page import ProductPage
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
 def test_guest_can_add_product_to_basket(browser, link):
-    page = ProductPage(browser, link)
-    page.open()
-    time.sleep(1)
-    page.should_be_btn_add_to_basket()
-    page.add_product_to_basket()
-    page.solve_quiz_and_get_code()
-    page.should_be_success_message()
-    page.compare_titles_of_books()
+    page = ProductPage(browser, link)                         # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()                                               # открываем страницу
+    page.should_be_btn_add_to_basket()                        # Проверяем наличие кнопки для добавления в корзину
+    page.add_product_to_basket()                              # выполняем метод страницы — добавляем товар в корзину
+    page.solve_quiz_and_get_code()                            # решаем алерт
+    page.should_be_success_message()                          # выполняем метод страницы — порверяем наличие сообщения
+    page.compare_titles_of_books()                            # выполняем метод страницы — проверяем корректность текста сообщения
 
 #негативный тест: гость не видит сообщения о добавлении товара после добавления
 @pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
-    page = ProductPage(browser, link)
-    page.open()
-    time.sleep(1)
-    page.should_be_btn_add_to_basket()
-    page.add_product_to_basket()
-    page.solve_quiz_and_get_code()
-    page.should_not_be_success_message()
-    page.compare_titles_of_books()
+    page = ProductPage(browser, link)                         # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()                                               # открываем страницу
+    page.should_be_btn_add_to_basket()                        # Проверяем наличие кнопки для добавления в корзину
+    page.add_product_to_basket()                              # выполняем метод страницы — добавляем товар в корзину
+    page.solve_quiz_and_get_code()                            # решаем алерт
+    page.should_not_be_success_message()                      # выполняем метод страницы — порверяем наличие сообщения
+    page.compare_titles_of_books()                            # выполняем метод страницы — проверяем корректность текста сообщения
 
 #гость не видит сообщения о добавлении товара на странице товара до добавления в корзину
 def test_guest_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
-    page = ProductPage(browser, link)
-    page.open()
-    time.sleep(1)
-    page.should_not_be_success_message()
+    page = ProductPage(browser, link)                         # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()                                               # открываем страницу
+    page.should_not_be_success_message()                      # проверяем, что на странице не отображается сообщение до добавления в корзину
 
 #Негативный тест: сообщение о добавлении в корзину исчезает
 @pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
-    page = ProductPage(browser, link)
-    page.open()
-    time.sleep(1)
-    page.should_be_btn_add_to_basket()
-    page.add_product_to_basket()
-    page.solve_quiz_and_get_code()
-    page.should_is_disappeared_success_message()
+    page = ProductPage(browser, link)                         # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+    page.open()                                               # открываем страницу
+    page.should_be_btn_add_to_basket()                        # Проверяем наличие кнопки для перехода в корзину
+    page.add_product_to_basket()                              # выполняем метод страницы — добавляем товар в корзину
+    page.solve_quiz_and_get_code()                            # решаем алерт
+    page.should_is_disappeared_success_message()              # проверяем, что сообщение исчезло
 
 #группа тестов для гостя
 @pytest.mark.login_guest
@@ -73,9 +69,9 @@ class TestLoginFromMainPage():
     # на странице продукта для гостя отображается кнопка для перехода на страницу логина
     def test_guest_should_see_login_link_on_product_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_be_login_link()
+        page = ProductPage(browser, link)                      # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()                                            # открываем страницу
+        page.should_be_login_link()                            # Проверяем наличие кнопки для перехода на страницу логина
 
     # гость может перейти на страницу логина со станицы продукта
     @pytest.mark.need_review
