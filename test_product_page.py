@@ -1,13 +1,14 @@
 import time
 import pytest
 
-#Наследуем методы классов
+# Наследуем методы классов
 from peges.basket_page import BasketPage
 from peges.locators import BasePageLocators
 from peges.login_page import LoginPage
 from peges.product_page import ProductPage
 
-#создаем тестовые сцениарии
+
+# создаем тестовые сцениарии
 @pytest.mark.need_review
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -20,7 +21,7 @@ from peges.product_page import ProductPage
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
 def test_guest_can_add_product_to_basket(browser, link):
-    #link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+    # link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page = ProductPage(browser, link)
     page.open()
     time.sleep(1)
@@ -72,16 +73,18 @@ class TestLoginFromMainPage():
     @pytest.mark.need_review
     def test_guest_can_go_to_login_page_from_product_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = ProductPage(browser, link)                      # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
-        page.open()                                            # открываем страницу
-        page.go_to_login_page()                                # выполняем метод страницы — переходим на страницу логина
-        login_page = LoginPage(browser, browser.current_url)   # открываем страницу с формами логина и регистрации
-        login_page.should_be_login_page()                      # выполняем проверку на отображение страницы
+        page = ProductPage(browser,
+                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()  # открываем страницу
+        page.go_to_login_page()  # выполняем метод страницы — переходим на страницу логина
+        login_page = LoginPage(browser, browser.current_url)  # открываем страницу с формами логина и регистрации
+        login_page.should_be_login_page()  # выполняем проверку на отображение страницы
 
     @pytest.mark.need_review
     def test_guest_cant_see_product_in_basket_opened_from_product_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser,
+                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
         page.open()
         page.is_element_present(*BasePageLocators.BASKET_LINK)
         page.go_to_basket_page()
@@ -89,11 +92,13 @@ class TestLoginFromMainPage():
         basket.should_be_message_in_basket()
         basket.should_be_no_items_in_basket()
 
+
 @pytest.mark.login
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
-        page = ProductPage(browser, "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/")  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser,
+                           "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/")  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
         page.open()
         page.go_to_login_page()
         login_page = LoginPage(browser, browser.current_url)
@@ -103,7 +108,8 @@ class TestUserAddToBasketFromProductPage():
 
     def test_user_cant_see_success_message(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser,
+                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
         page.open()
         page.is_element_present(*BasePageLocators.BASKET_LINK)
         page.go_to_basket_page()
@@ -114,7 +120,8 @@ class TestUserAddToBasketFromProductPage():
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page = ProductPage(browser,
+                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
         page.open()
         page.is_element_present(*BasePageLocators.BASKET_LINK)
         page.go_to_basket_page()
