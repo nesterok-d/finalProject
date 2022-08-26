@@ -12,4 +12,3 @@ class BasketPage(BasePage):
     def should_be_message_in_basket(self):
         assert self.is_element_present(*BasketPageLocators.MESSAGE_IN_BASKET), \
             "message in basket is not presented, but should be"
-
