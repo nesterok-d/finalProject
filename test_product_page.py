@@ -29,7 +29,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.add_product_to_basket()
     page.solve_quiz_and_get_code()
     page.should_be_success_message()
-    page.page.take_success_message() == page.take_title_the_book()
+    page.compare_titles_of_books()
 
 
 @pytest.mark.xfail
@@ -42,9 +42,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.add_product_to_basket()
     page.solve_quiz_and_get_code()
     page.should_not_be_success_message()
-    title1 = page.take_title_the_book()
-    title2 = page.take_success_message()
-    page.compare_titles_of_books(title1, title2)
+    page.compare_titles_of_books()
 
 
 def test_guest_cant_see_success_message(browser):
