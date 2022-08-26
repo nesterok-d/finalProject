@@ -33,7 +33,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.should_be_success_message()
     page.compare_titles_of_books()
 
-#негативный тест: пользователь не видит сообщения о добавлении товара после добавления
+#негативный тест: гость не видит сообщения о добавлении товара после добавления
 @pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
@@ -46,7 +46,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.should_not_be_success_message()
     page.compare_titles_of_books()
 
-#пользователь не видит сообщения о добавлении товара на странице товара до добавления в корзину
+#гость не видит сообщения о добавлении товара на странице товара до добавления в корзину
 def test_guest_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page = ProductPage(browser, link)
@@ -119,20 +119,18 @@ class TestUserAddToBasketFromProductPage():
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
         page = ProductPage(browser, link)                      # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
         page.open()                                            # открываем страницу
-        page.is_element_present(*BasePageLocators.BASKET_LINK) # проверяем наличие кнопки для перехода в корзину
-        page.go_to_basket_page()                               # выполняем метод страницы — переходим на страницу корзины
-        basket = BasketPage(browser, browser.current_url)      # открываем страницу корзины
-        basket.should_be_message_in_basket()                   # выполняем проверку на поиск сообщения "корзина пуста"
-        basket.should_be_no_items_in_basket()                  # выполняем проверку на отображение элементов списка на странице
+        page.should_be_btn_add_to_basket()                     # проверяем наличие кнопки для добавления товара в корзину
+        page.add_product_to_basket()                           # выполняем метод страницы — добавляем товар в корзину
+        page.should_not_be_success_message()                   # проверяем, что сообщение не появилось
+        page.compare_titles_of_books()                         # проверяем корректность сообщения
 
     # авторизованный пользователь может добавить товар в корзину
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
         page = ProductPage(browser, link)                      # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
-        page.open()
-        page.is_element_present(*BasePageLocators.BASKET_LINK)
-        page.go_to_basket_page()
-        basket = BasketPage(browser, browser.current_url)
-        basket.should_be_message_in_basket()
-        basket.should_be_no_items_in_basket()
+        page.open()                                            # открываем страницу
+        page.should_be_btn_add_to_basket()                     # проверяем наличие кнопки для добавления товара в корзину
+        page.add_product_to_basket()                           # выполняем метод страницы — добавляем товар в корзину
+        page.should_be_success_message()                       # проверяем, что сообщение появилось
+        page.compare_titles_of_books()                         # проверяем корректность сообщения
