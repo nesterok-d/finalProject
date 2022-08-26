@@ -4,7 +4,6 @@ from .base_page import BasePage
 # наследование от ProductPageLocators
 from .locators import ProductPageLocators
 
-
 # создание класса "основная станица"
 class ProductPage(BasePage):
 
