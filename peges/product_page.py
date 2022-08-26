@@ -1,4 +1,3 @@
-import math
 # наследование свойств базовой страницы из класса BasePage
 from .base_page import BasePage
 
@@ -23,22 +22,17 @@ class ProductPage(BasePage):
         assert self.is_element_present(
             *ProductPageLocators.SUCCESS_MESSAGE), "сообщение о добавлении товара в корзину не получено"
 
-    def take_title_the_book(self):
-        title_the_book = self.browser.find_element(*ProductPageLocators.TITLE_THE_BOOK)
-        return title_the_book.text
-
-    def take_success_message(self):
-        success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE)
-        return success_message.text
-
+    # метод проверяющий отсутствие сообщения
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
+    # метод проверяющий, что сообщение исчезло
     def should_is_disappeared_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
+    # метод сравнения названий книг на странице и в сообщении
     def compare_titles_of_books(self):
         success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE)
         title_the_book = self.browser.find_element(*ProductPageLocators.TITLE_THE_BOOK)
