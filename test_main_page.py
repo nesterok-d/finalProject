@@ -22,6 +22,7 @@ def test_guest_can_go_to_login_page(browser):
     login_page = LoginPage(browser, browser.current_url)    # открываем страницу с формами логина и регистрации
     login_page.should_be_login_page()                       # выполняем проверку на отображение страницы
 
+#проверка что пользователь не видит товары в корзине
 def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)                          # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
